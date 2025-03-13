@@ -1,0 +1,162 @@
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1200px) {
+    header {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .servicesBlock h1 {
+        font-size: 48px;
+    }
+
+    .customer-result-title {
+        font-size: 48px;
+    }
+}
+
+@media (max-width: 991px) {
+    .menu {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .service-block {
+        width: 100%;
+    }
+
+    .customer-result-wrapper {
+        width: calc(50% - 15px);
+    }
+
+    .contactsBlockOuter {
+        flex-direction: column;
+    }
+
+    .contactMap {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .contactMap iframe {
+        width: 100%;
+        height: 400px;
+    }
+
+    .container-flex {
+        flex-direction: column;
+    }
+
+    .container-flex > div.description-left-block,
+    .container-flex > div.description-right-block {
+        width: 100%;
+        text-align: center;
+    }
+
+    .description-left-block img {
+        margin: 0 auto 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-block-title {
+        font-size: 32px;
+    }
+
+    .servicesBlock h1 {
+        font-size: 36px;
+    }
+
+    .customer-result-title {
+        font-size: 36px;
+    }
+
+    .questions-block-title {
+        font-size: 36px;
+    }
+
+    .inputs-row {
+        flex-direction: column;
+    }
+
+    .wrapp img {
+        display: none;
+    }
+
+    .logo img {
+        max-height: 150px;
+    }
+
+    .details-btn {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .details-btn img {
+        width: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .customer-result-wrapper {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .service-images-block {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .service-images-block .image-wrapper {
+        width: 100%;
+    }
+
+    .service-images-block .image-wrapper::before {
+        padding-bottom: 75%;
+    }
+
+    .contactsBlock-title {
+        font-size: 36px;
+    }
+
+    .questions-desc p {
+        font-size: 18px;
+    }
+
+    .description-hero {
+        font-size: 18px;
+    }
+
+    .simple-desc {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .servicesBlock h1 {
+        font-size: 28px;
+    }
+
+    .service-block-title {
+        font-size: 24px;
+    }
+
+    .customer-result-title {
+        font-size: 28px;
+    }
+
+    .questions-block-title {
+        font-size: 28px;
+    }
+
+    .contactsBlock-title {
+        font-size: 28px;
+    }
+}

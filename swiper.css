@@ -1,0 +1,101 @@
+.splide {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.splide__track {
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.splide__slide {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    background-position: 50%;
+    background-size: cover;
+}
+
+.splide__slide::before {
+    content: '';
+    display: block;
+    padding-bottom: 75%; /* 4:3 Aspect Ratio (3/4 = 0.75 = 75%) */
+}
+
+.splide__slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+.splide__slide:hover {
+    transform: scale(1.02);
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-image {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.modal-close::before,
+.modal-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    transform-origin: center;
+}
+
+.modal-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.modal-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.modal-close:hover::before,
+.modal-close:hover::after {
+    background-color: #FF4C4C;
+}
