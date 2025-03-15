@@ -34,7 +34,180 @@ function closeModal() {
 	document.body.style.overflow = '';
 }
 
+function setInitialHeight() {
+	const homeBlock = document.querySelector('.homeBlock');
+	if (homeBlock) {
+		const height = window.innerHeight;
+		homeBlock.style.height = `${height}px`;
+	}
+}
+
+function lazyLoadServiceImages() {
+	const options = {
+		root: null,
+		rootMargin: '50px',
+		threshold: 0.1
+	};
+
+	const loadImage = (element) => {
+		if (element.classList.contains('loaded')) return;
+
+		const src = element.getAttribute('data-src');
+		if (src) {
+			const img = new Image();
+			img.onload = () => {
+				element.src = src;
+				element.classList.add('loaded');
+				element.removeAttribute('data-src');
+			};
+			img.src = src;
+		}
+	};
+
+	const handleIntersection = (entries, observer) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				loadImage(entry.target);
+				observer.unobserve(entry.target);
+			}
+		});
+	};
+
+	const observer = new IntersectionObserver(handleIntersection, options);
+
+	document.querySelectorAll('.service-images-block img[data-src]').forEach(img => {
+		observer.observe(img);
+	});
+}
+
+
+function lazyLoadServiceImages() {
+	const options = {
+		root: null,
+		rootMargin: '50px',
+		threshold: 0.1
+	};
+
+	const loadImage = (element) => {
+		if (element.classList.contains('loaded')) return;
+
+		const src = element.getAttribute('data-src');
+		if (src) {
+			const img = new Image();
+			img.onload = () => {
+				element.src = src;
+				element.classList.add('loaded');
+				element.removeAttribute('data-src');
+			};
+			img.src = src;
+		}
+	};
+
+	const handleIntersection = (entries, observer) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				loadImage(entry.target);
+				observer.unobserve(entry.target);
+			}
+		});
+	};
+
+	const observer = new IntersectionObserver(handleIntersection, options);
+
+	document.querySelectorAll('.service-images-block img[data-src]').forEach(img => {
+		observer.observe(img);
+	});
+}
+
+function showThankYouMessage() {
+	const form = document.getElementById('contactForm');
+	const formContent = form.innerHTML;
+
+	form.innerHTML = `
+        <div class="thank-you-message">
+            <h3>Thank you for your request! 🎉</h3>
+            <p>We will contact you shortly to schedule an appointment.</p>
+           
+        </div>
+    `;
+
+	// Store the original form content
+	form.setAttribute('data-original-content', formContent);
+}
+
+function resetForm(button) {
+	const form = document.getElementById('contactForm');
+	const originalContent = form.getAttribute('data-original-content');
+	form.innerHTML = originalContent;
+
+	// Reattach the submit event listener
+	attachFormSubmitHandler();
+}
+
+function attachFormSubmitHandler() {
+	const form = document.getElementById('contactForm');
+	if (form) {
+		form.addEventListener('submit', async function(e) {
+			e.preventDefault();
+
+			const username = form.querySelector('input[name="username"]').value;
+			const phone = form.querySelector('input[name="phone"]').value;
+
+			if (!username || !phone) {
+				alert('Please fill in all fields');
+				return;
+			}
+
+			try {
+				const response = await fetch('send.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						username: username,
+						phone: phone
+					})
+				});
+
+				const result = await response.json();
+
+				if (result.success) {
+					showThankYouMessage();
+				} else {
+					alert(result.message || 'Error sending message. Please try again.');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+				alert('Error sending message. Please try again.');
+			}
+		});
+	}
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+	// Set initial height
+	setInitialHeight();
+
+	lazyLoadServiceImages();
+
+	attachFormSubmitHandler();
+
+	// Details button handler
+	const detailsBtn = document.querySelector('.details-btn');
+	if (detailsBtn) {
+		detailsBtn.addEventListener('click', () => {
+			scrollToSection('.servicesBlock');
+		});
+	}
+
+	const signUpBtn = document.querySelector('.signup-btn');
+	if (signUpBtn) {
+		signUpBtn.addEventListener('click', () => {
+			scrollToSection('.questionsBlock');
+		});
+	}
+
 	// Form submission handler
 	const form = document.getElementById('contactForm');
 	if (form) {
